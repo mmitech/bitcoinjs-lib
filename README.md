@@ -51,7 +51,7 @@ These steps are advisory only and allow you to use the API to its full extent.
 
 [Browserify](https://github.com/substack/node-browserify) is assumed to be installed for these steps.
 
-From your repository, create a `foobar.js` file
+From your repository, create a `foo.js` file
 
 ``` javascript
 var foobar = {
@@ -65,8 +65,7 @@ var foobar = {
 module.exports = foobar
 ```
 
-Each of these included packages are seperate to `bitcoinjs-lib`, and must be installed separately.
-They are however used in the bitcoinjs-lib public API.
+Each of these included packages are separate to `bitcoinjs-lib`, and must be `npm install`'d individually.
 
 Using browserify, compile `foo.js` for use in the browser:
 
@@ -83,6 +82,16 @@ Example:
 uglifyjs ... --mangle --reserved 'Array,BigInteger,Boolean,Buffer,ECPair,Function,Number,Point'
 ```
 
+### Flow
+
+Definitions for [Flow typechecker](https://flowtype.org/) are available in flow-typed repository.
+
+[You can either download them directly](https://github.com/flowtype/flow-typed/blob/master/definitions/npm/bitcoinjs-lib_v2.x.x/flow_%3E%3Dv0.17.x/bitcoinjs-lib_v2.x.x.js) from the repo, or with the flow-typed CLI
+
+    # npm install -g flow-typed
+    $ flow-typed install -f 0.27 bitcoinjs-lib@2.2.0 # 0.27 for flow version, 2.2.0 for bitcoinjs-lib version
+    
+The definitions are complete and up to date with version 2.2.0. The definitions are maintained by [@runn1ng](https://github.com/runn1ng).
 
 ## Examples
 
@@ -111,16 +120,11 @@ If you have a use case that you feel could be listed here, please [ask for it](h
 - [BitAddress](https://www.bitaddress.org)
 - [Blockchain.info](https://blockchain.info/wallet)
 - [Blocktrail](https://www.blocktrail.com/)
-- [Brainwallet](https://brainwallet.github.io)
-- [Coinkite](https://coinkite.com)
-- [Coinpunk](https://coinpunk.com)
-- [Dark Wallet](https://darkwallet.unsystem.net)
+- [Dark Wallet](https://www.darkwallet.is/)
 - [DecentralBank](http://decentralbank.com/)
 - [Dogechain Wallet](https://dogechain.info)
 - [EI8HT Wallet](http://ei8.ht/)
 - [GreenAddress](https://greenaddress.it)
-- [Hive Wallet](https://www.hivewallet.com)
-- [QuickCoin](https://wallet.quickcoin.co)
 - [Robocoin](https://wallet.robocoin.com)
 - [Skyhook ATM](http://projectskyhook.com)
 
@@ -154,7 +158,7 @@ Please make your best effort to adhere to these when contributing to save on tri
 - [BIP32-Utils](https://github.com/bitcoinjs/bip32-utils) - A set of utilities for working with BIP32
 - [BIP32-Wallet](https://github.com/bitcoinjs/bip32-wallet) - A BIP32 Wallet backed by bitcoinjs-lib, lite on features but heavily tested
 - [BIP66](https://github.com/bitcoinjs/bip66) - Strict DER signature decoding
-- [BIP69](https://github.com/bitcoinjs/bip69) - Mnemonic generation for deterministic keys
+- [BIP69](https://github.com/bitcoinjs/bip69) - Lexicographical Indexing of Transaction Inputs and Outputs
 - [Base58](https://github.com/cryptocoinjs/bs58) - Base58 encoding/decoding
 - [Base58 Check](https://github.com/bitcoinjs/bs58check) - Base58 check encoding/decoding
 - [BCoin](https://github.com/indutny/bcoin) - BIP37 / Bloom Filters / SPV client

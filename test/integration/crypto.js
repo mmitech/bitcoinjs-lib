@@ -25,16 +25,14 @@ describe('bitcoinjs-lib (crypto)', function () {
 
       return {
         shared: new bitcoin.ECPair(null, Qprime),
-        nonce: new bitcoin.ECPair(null, noncePair.Q)
+        nonce: noncePair.Q
       }
     }
 
     function stealthReceive (d, P) {
       var dP = P.multiply(d) // shared secret
       var c = bigi.fromBuffer(bitcoin.crypto.sha256(dP.getEncoded()))
-      var derived = new bitcoin.ECPair(d.add(c).mod(n))
-
-      return derived
+      return new bitcoin.ECPair(d.add(c).mod(n))
     }
 
     // receiver private key
@@ -43,7 +41,7 @@ describe('bitcoinjs-lib (crypto)', function () {
     var stealthS = stealthSend(receiver.Q) // public, done by sender
     // ... sender now reveals nonce to receiver
 
-    var stealthR = stealthReceive(receiver.d, stealthS.nonce.Q) // private, done by receiver
+    var stealthR = stealthReceive(receiver.d, stealthS.nonce) // private, done by receiver
 
     // and check that we derived both sides correctly
     assert.equal(stealthS.shared.getAddress(), stealthR.getAddress())
