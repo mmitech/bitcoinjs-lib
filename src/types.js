@@ -26,6 +26,11 @@ function UInt53 (value) {
     Math.floor(value) === value
 }
 
+var SATOSHI_MAX = 2.1 * 1e15
+function Satoshi (value) {
+  return UInt53(value) && value <= SATOSHI_MAX
+}
+
 function Bip32Path (value) {
   return typeforce.String(value) &&
     value.match(/^(m\/)?(\d+'?\/)*\d+'?$/)
@@ -52,18 +57,19 @@ var Network = typeforce.compile({
 // extend typeforce types with ours
 var types = {
   BigInt: BigInt,
+  Bip32Path: Bip32Path,
   Buffer256bit: Buffer256bit,
   ECPoint: ECPoint,
   ECSignature: ECSignature,
   Hash160bit: Hash160bit,
   Hash256bit: Hash256bit,
   Network: Network,
+  Satoshi: Satoshi,
   UInt2: UInt2,
   UInt8: UInt8,
   UInt31: UInt31,
   UInt32: UInt32,
-  UInt53: UInt53,
-  Bip32Path: Bip32Path
+  UInt53: UInt53
 }
 
 for (var typeName in typeforce) {
