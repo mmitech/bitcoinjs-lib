@@ -1,15 +1,20 @@
 var typeforce = require('typeforce')
 
-function nBuffer (value, n) {
-  typeforce(types.Buffer, value)
-  if (value.length !== n) throw new typeforce.TfTypeError('Expected ' + (n * 8) + '-bit Buffer, got ' + (value.length * 8) + '-bit Buffer')
+function nBuffer (length, name) {
+  function nBuffer (value) {
+    return Buffer.isBuffer(value) && value.length === length
+  }
 
-  return true
+  nBuffer.toJSON = function () {
+    return (name || 'Buffer ') + length * 8 + ' bit'
+  }
+
+  return nBuffer
 }
 
-function Hash160bit (value) { return nBuffer(value, 20) }
-function Hash256bit (value) { return nBuffer(value, 32) }
-function Buffer256bit (value) { return nBuffer(value, 32) }
+var Hash160bit = nBuffer(20, 'Hash ')
+var Hash256bit = nBuffer(32, 'Hash ')
+var Buffer256bit = nBuffer(32)
 
 var UINT53_MAX = Math.pow(2, 53) - 1
 var UINT31_MAX = Math.pow(2, 31) - 1
